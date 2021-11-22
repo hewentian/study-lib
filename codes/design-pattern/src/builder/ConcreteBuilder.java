@@ -8,12 +8,12 @@ public class ConcreteBuilder implements Builder {
     }
 
     @Override
-    public void bulidHead() {
+    public void buildHead() {
         person.setHead("building man's head");
     }
 
     @Override
-    public void buileBody() {
+    public void buildBody() {
         person.setBody("building man's body");
     }
 

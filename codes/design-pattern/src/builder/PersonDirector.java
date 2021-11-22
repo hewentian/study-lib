@@ -2,8 +2,8 @@ package builder;
 
 public class PersonDirector {
     public Person constructPerson(ConcreteBuilder builder) {
-        builder.bulidHead();
-        builder.buileBody();
+        builder.buildHead();
+        builder.buildBody();
         builder.buildFoot();
 
         return builder.buildPerson();

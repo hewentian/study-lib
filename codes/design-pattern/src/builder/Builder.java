@@ -1,9 +1,9 @@
 package builder;
 
 public interface Builder {
-    void bulidHead();
+    void buildHead();
 
-    void buileBody();
+    void buildBody();
 
     void buildFoot();
 }

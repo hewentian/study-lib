@@ -780,6 +780,20 @@ public class CommonUtil {
 		return hs.toUpperCase();
 	}
 
+	/**
+	 * Regex for converting CamelCase to camel_case
+	 *
+	 * @param s
+	 * @return
+	 */
+	public static String camelCase2camelCaseUnderscore(String s) {
+		String regex = "([a-z])([A-Z]+)";
+		String replacement = "$1_$2";
+		s = s.replaceAll(regex, replacement).toLowerCase();
+
+		return s;
+	}
+
 	public static void main(String[] args) {
 		// System.out.println(fullWidth2halfWidth("a９；ａｂｃａｂ")); // output:
 		// a9;abcab

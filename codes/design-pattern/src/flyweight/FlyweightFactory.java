@@ -10,7 +10,7 @@ public class FlyweightFactory {
         flyweights.put(arg, new FlyweightImpl());
     }
 
-    public static Flyweight getFlyweitht(String key) {
+    public static Flyweight getFlyweight(String key) {
         if (null == flyweights.get(key)) {
             flyweights.put(key, new FlyweightImpl());
         }
