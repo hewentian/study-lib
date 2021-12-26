@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public final class MemoryLocalShardingJdbcConfiguration3 {
+public final class Configuration3 {
 
     private static final String HOST = "mysql.hewentian.com";
 

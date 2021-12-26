@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @AllArgsConstructor
-public final class MemoryLocalShardingJdbcExampleService {
+public final class Service {
 
     private final DataSource dataSource;
 
