@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
 
-public final class Test {
+public class Test {
 
     public static void main(String[] args) throws SQLException {
         // 分库，不分表

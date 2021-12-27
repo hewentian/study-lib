@@ -1,10 +1,10 @@
-package com.hewentian.shardingsphere.spring;
+package com.hewentian.shardingsphere.springboot.jdbc;
 
 import com.hewentian.shardingsphere.entity.Address;
 import com.hewentian.shardingsphere.entity.Order;
 import com.hewentian.shardingsphere.entity.OrderItem;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @org.springframework.stereotype.Service
 public class Service {
-    @Resource(name = "shardingDataSource")
+    @Autowired
     private DataSource dataSource;
 
     /**
