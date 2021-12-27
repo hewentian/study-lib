@@ -1,9 +1,9 @@
-package com.hewentian.shardingsphere.raw;
+package com.hewentian.shardingsphere.raw.jdbc;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-public final class Test {
+public class Test {
 
     public static void main(String[] args) throws SQLException {
         // 分库，不分表

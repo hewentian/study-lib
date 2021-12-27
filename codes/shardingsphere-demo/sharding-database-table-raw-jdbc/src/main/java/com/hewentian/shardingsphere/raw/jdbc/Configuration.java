@@ -1,4 +1,4 @@
-package com.hewentian.shardingsphere.raw;
+package com.hewentian.shardingsphere.raw.jdbc;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.shardingsphere.driver.api.ShardingSphereDataSourceFactory;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public final class Configuration {
+public class Configuration {
 
     private static final String HOST = "mysql.hewentian.com";
 

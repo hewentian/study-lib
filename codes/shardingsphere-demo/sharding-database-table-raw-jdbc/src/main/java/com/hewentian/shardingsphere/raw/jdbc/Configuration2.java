@@ -1,4 +1,4 @@
-package com.hewentian.shardingsphere.raw;
+package com.hewentian.shardingsphere.raw.jdbc;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.shardingsphere.driver.api.ShardingSphereDataSourceFactory;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public final class Configuration3 {
+public class Configuration2 {
 
     private static final String HOST = "mysql.hewentian.com";
 
@@ -47,11 +47,6 @@ public final class Configuration3 {
         result.getBindingTableGroups().add("t_order");
         result.getBindingTableGroups().add("t_order_item");
 
-        result.setDefaultDatabaseShardingStrategy(new StandardShardingStrategyConfiguration("user_id", "database-inline"));
-        Properties databaseProps = new Properties();
-        databaseProps.setProperty("algorithm-expression", "demo_ds_${user_id % 2}");
-        result.getShardingAlgorithms().put("database-inline", new ShardingSphereAlgorithmConfiguration("INLINE", databaseProps));
-
         Properties orderProps = new Properties();
         orderProps.setProperty("algorithm-expression", "t_order_$->{order_id % 2}");
         result.getShardingAlgorithms().put("t-order-inline", new ShardingSphereAlgorithmConfiguration("INLINE", orderProps));
@@ -69,7 +64,7 @@ public final class Configuration3 {
     }
 
     private static ShardingTableRuleConfiguration getOrderTableRuleConfiguration() {
-        ShardingTableRuleConfiguration result = new ShardingTableRuleConfiguration("t_order", "demo_ds_${0..1}.t_order_${[0,1]}");
+        ShardingTableRuleConfiguration result = new ShardingTableRuleConfiguration("t_order", "demo_ds.t_order_${[0,1]}");
         result.setKeyGenerateStrategy(new KeyGenerateStrategyConfiguration("order_id", "snowflake"));
 
         result.setTableShardingStrategy(new StandardShardingStrategyConfiguration("order_id", "t-order-inline"));
@@ -77,7 +72,7 @@ public final class Configuration3 {
     }
 
     private static ShardingTableRuleConfiguration getOrderItemTableRuleConfiguration() {
-        ShardingTableRuleConfiguration result = new ShardingTableRuleConfiguration("t_order_item", "demo_ds_${0..1}.t_order_item_${[0,1]}");
+        ShardingTableRuleConfiguration result = new ShardingTableRuleConfiguration("t_order_item", "demo_ds.t_order_item_${[0,1]}");
         result.setKeyGenerateStrategy(new KeyGenerateStrategyConfiguration("order_item_id", "snowflake"));
 
         result.setTableShardingStrategy(new StandardShardingStrategyConfiguration("order_id", "t-order-item-inline"));
@@ -85,9 +80,8 @@ public final class Configuration3 {
     }
 
     private Map<String, DataSource> createDataSourceMap() {
-        Map<String, DataSource> result = new HashMap<>(2, 1);
-        result.put("demo_ds_0", createDataSource("demo_ds_0"));
-        result.put("demo_ds_1", createDataSource("demo_ds_1"));
+        Map<String, DataSource> result = new HashMap<>(1, 1);
+        result.put("demo_ds", createDataSource("demo_ds"));
         return result;
     }
 

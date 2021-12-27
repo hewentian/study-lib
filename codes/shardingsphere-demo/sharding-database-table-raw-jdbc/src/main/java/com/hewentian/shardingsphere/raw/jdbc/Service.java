@@ -1,4 +1,4 @@
-package com.hewentian.shardingsphere.raw;
+package com.hewentian.shardingsphere.raw.jdbc;
 
 import lombok.AllArgsConstructor;
 import com.hewentian.shardingsphere.entity.Address;
@@ -16,9 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 @AllArgsConstructor
-public final class Service {
+public class Service {
 
-    private final DataSource dataSource;
+    private DataSource dataSource;
 
     /**
      * Execute test.

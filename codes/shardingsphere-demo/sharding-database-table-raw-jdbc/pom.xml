@@ -9,7 +9,7 @@
     </parent>
     
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sharding-database-table-raw</artifactId>
+    <artifactId>sharding-database-table-raw-jdbc</artifactId>
     <name>${project.artifactId}</name>
     
     <dependencies>

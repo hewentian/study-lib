@@ -20,7 +20,7 @@
     <modules>
         <module>sharding-entity</module>
 
-        <module>sharding-database-table-raw</module>
+        <module>sharding-database-table-raw-jdbc</module>
         <module>sharding-database-table-spring-namespace</module>
         <module>sharding-database-table-springboot-jdbc</module>
     </modules>
