@@ -1,34 +1,46 @@
 package iterator;
 
-public class ListImpl implements List {
-    private Object[] list;
-    private int index;
+public class ListImpl<E> implements List<E> {
+    private Object[] elementData;
     private int size;
 
     public ListImpl() {
-        index = 0;
-        size = 0;
-        list = new Object[100];
+        elementData = new Object[10];
     }
 
     @Override
-    public void add(Object object) {
-        list[index++] = object;
-        size++;
+    public boolean add(E e) {
+        elementData[size++] = e;
+        return true;
     }
 
     @Override
-    public Object get(int index) {
-        return list[index];
+    public E get(int index) {
+        return (E) elementData[index];
     }
 
     @Override
-    public int getSize() {
-        return this.size;
+    public int size() {
+        return size;
     }
 
     @Override
     public Iterator iterator() {
-        return new IteratorImpl(this);
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<E> {
+        private int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public E next() {
+            E e = get(index++);
+            return e;
+        }
     }
 }

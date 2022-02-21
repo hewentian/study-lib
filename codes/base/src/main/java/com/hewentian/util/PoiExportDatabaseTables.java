@@ -154,7 +154,7 @@ public class PoiExportDatabaseTables {
                 List<String[]> list = new ArrayList<>();
 
                 // 获取指定表的元数据信息
-                rs = dmd.getColumns(null, databaseName, tableName, "%");
+                rs = dmd.getColumns(databaseName, databaseName, tableName, "%");
                 while (rs.next()) {
                     String[] data = new String[4];
                     data[0] = rs.getString("COLUMN_NAME");

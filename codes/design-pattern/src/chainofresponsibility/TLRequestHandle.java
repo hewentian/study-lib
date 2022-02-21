@@ -1,10 +1,10 @@
 package chainofresponsibility;
 
 public class TLRequestHandle implements RequestHandle {
-    private RequestHandle rh;
+    private RequestHandle requestHandle;
 
-    public TLRequestHandle(RequestHandle rh) {
-        this.rh = rh;
+    public TLRequestHandle(RequestHandle requestHandle) {
+        this.requestHandle = requestHandle;
     }
 
     @Override
@@ -12,7 +12,7 @@ public class TLRequestHandle implements RequestHandle {
         if (request instanceof LeaveRequest) {
             System.out.println("要请假，项目组长审批");
         } else {
-            rh.handleRequest(request);
+            requestHandle.handleRequest(request);
         }
     }
 }

@@ -11,7 +11,7 @@ public class FlyweightFactory {
     }
 
     public static Flyweight getFlyweight(String key) {
-        if (null == flyweights.get(key)) {
+        if (!flyweights.containsKey(key)) {
             flyweights.put(key, new FlyweightImpl());
         }
 

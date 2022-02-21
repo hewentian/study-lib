@@ -1,11 +1,7 @@
 package iterator;
 
-public interface Iterator {
-    Object next();
-
-    void first();
-
-    void last();
+public interface Iterator<E> {
+    E next();
 
     boolean hasNext();
 }

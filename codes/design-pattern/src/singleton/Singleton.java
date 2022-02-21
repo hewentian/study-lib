@@ -11,7 +11,7 @@ package singleton;
 /**
  * 懒汉模式
  */
-//public class Singleton {
+//public final class Singleton {
 //    private static Singleton singleton;
 //
 //    private Singleton() {
@@ -29,7 +29,7 @@ package singleton;
 /**
  * 饿汉模式
  */
-//public class Singleton {
+//public final class Singleton {
 //    private static final Singleton singleton = new Singleton();
 //
 //    private Singleton() {
@@ -41,7 +41,7 @@ package singleton;
 //}
 
 // 当加锁时，下面这种在方法体里面加锁更好
-public class Singleton {
+public final class Singleton {
     private static Singleton singleton;
     private static String key = "key";
 

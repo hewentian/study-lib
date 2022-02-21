@@ -1,10 +1,10 @@
 package chainofresponsibility;
 
 public class PMRequestHandle implements RequestHandle {
-    private RequestHandle rh;
+    private RequestHandle requestHandle;
 
-    public PMRequestHandle(RequestHandle rh) {
-        this.rh = rh;
+    public PMRequestHandle(RequestHandle requestHandle) {
+        this.requestHandle = requestHandle;
     }
 
     @Override
@@ -12,7 +12,7 @@ public class PMRequestHandle implements RequestHandle {
         if (request instanceof AddMoneyRequest) {
             System.out.println("要加薪，项目经理审批");
         } else {
-            rh.handleRequest(request);
+            requestHandle.handleRequest(request);
         }
     }
 }

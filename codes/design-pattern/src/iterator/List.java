@@ -1,11 +1,11 @@
 package iterator;
 
-public interface List {
-    Iterator iterator();
+public interface List<E> {
+    Iterator<E> iterator();
 
-    int getSize();
+    int size();
 
-    Object get(int index);
+    E get(int index);
 
-    void add(Object object);
+    boolean add(E e);
 }

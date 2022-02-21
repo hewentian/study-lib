@@ -6,13 +6,13 @@ public class Test {
         RequestHandle pm = new PMRequestHandle(hr);
         RequestHandle tl = new TLRequestHandle(pm);
 
-        Request request = new DimissionRequest();
-        tl.handleRequest(request);
-
-        request = new LeaveRequest();
+        Request request = new LeaveRequest();
         tl.handleRequest(request);
 
         request = new AddMoneyRequest();
-        pm.handleRequest(request);
+        tl.handleRequest(request);
+
+        request = new DimissionRequest();
+        tl.handleRequest(request);
     }
 }
