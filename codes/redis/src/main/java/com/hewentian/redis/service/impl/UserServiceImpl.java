@@ -1,7 +1,7 @@
-package com.hewentian.redisson.service.impl;
+package com.hewentian.redis.service.impl;
 
-import com.hewentian.redisson.entity.User;
-import com.hewentian.redisson.service.UserService;
+import com.hewentian.redis.entity.User;
+import com.hewentian.redis.service.UserService;
 
 public class UserServiceImpl implements UserService {
     @Override

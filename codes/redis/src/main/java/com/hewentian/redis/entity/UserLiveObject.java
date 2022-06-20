@@ -1,4 +1,4 @@
-package com.hewentian.redisson.entity;
+package com.hewentian.redis.entity;
 
 import lombok.*;
 import org.redisson.api.annotation.REntity;

@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
  * @since JDK 1.8
  */
 public class KafkaDemo {
-    private static String bootstrapServers = "127.0.0.1:9092";
+    private static String bootstrapServers = "kafka.hewentian.com:9092";
     private static String topicName = "myTopic";
     private static String groupId = "groupA";
 

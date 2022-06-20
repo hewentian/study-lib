@@ -1,4 +1,4 @@
-package com.hewentian.redisson.util;
+package com.hewentian.redis.util;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

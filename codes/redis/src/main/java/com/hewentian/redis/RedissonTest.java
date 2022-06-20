@@ -1,10 +1,10 @@
-package com.hewentian.redisson;
+package com.hewentian.redis;
 
-import com.hewentian.redisson.entity.User;
-import com.hewentian.redisson.entity.UserLiveObject;
-import com.hewentian.redisson.service.UserService;
-import com.hewentian.redisson.service.impl.UserServiceImpl;
-import com.hewentian.redisson.util.RedissonUtils;
+import com.hewentian.redis.entity.User;
+import com.hewentian.redis.entity.UserLiveObject;
+import com.hewentian.redis.service.UserService;
+import com.hewentian.redis.service.impl.UserServiceImpl;
+import com.hewentian.redis.util.RedissonUtils;
 import org.redisson.RedissonRedLock;
 import org.redisson.api.*;
 import org.redisson.client.RedisClient;
@@ -16,7 +16,7 @@ import org.redisson.client.protocol.RedisCommands;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class Test {
+public class RedissonTest {
     private static RedissonClient redissonClient;
 
     public static void main(String[] args) {

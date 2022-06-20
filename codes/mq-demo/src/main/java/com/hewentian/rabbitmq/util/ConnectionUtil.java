@@ -8,7 +8,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 /**
- * 
+ *
  * <p>
  * <b>ConnectionUtil.java</b> 是
  * </p>
@@ -21,7 +21,7 @@ import com.rabbitmq.client.ConnectionFactory;
 public class ConnectionUtil {
 	public static Connection getConnection() throws IOException, TimeoutException {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
-		connectionFactory.setHost("10.1.32.97");
+		connectionFactory.setHost("rabbitmq.hewentian.com");
 		connectionFactory.setPort(5672);
 		connectionFactory.setUsername("hewentian");
 		connectionFactory.setPassword("12345678");
