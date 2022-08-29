@@ -12,11 +12,13 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <elasticsearch.version>6.3.1</elasticsearch.version>
     </properties>
 
     <modules>
         <module>zookeeper</module>
         <module>mongodb</module>
+        <module>elasticsearch</module>
     </modules>
 
     <dependencyManagement>
@@ -38,6 +40,11 @@
                 <artifactId>fastjson</artifactId>
                 <version>2.0.12</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.5</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -50,6 +57,27 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.12.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wltea.ik-analyzer</groupId>
+                <artifactId>ik-analyzer</artifactId>
+                <version>3.2.8</version>
+            </dependency>
+            <dependency>
+                <groupId>io.searchbox</groupId>
+                <artifactId>jest</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>transport</artifactId>
+                <version>${elasticsearch.version}</version>
             </dependency>
 
         </dependencies>

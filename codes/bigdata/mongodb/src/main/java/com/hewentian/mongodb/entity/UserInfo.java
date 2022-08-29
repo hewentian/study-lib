@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * <b>T</b> 是
+ * <b>UserInfo.java</b> 是
  * </p>
  *
  * @author <a href="mailto:wentian.he@qq.com">hewentian</a>

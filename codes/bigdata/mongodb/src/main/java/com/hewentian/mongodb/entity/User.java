@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- * <b>T</b> 是
+ * <b>User.java</b> 是
  * </p>
  *
  * @author <a href="mailto:wentian.he@qq.com">hewentian</a>
