@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hewentian.jackson.entity.User;
 import com.hewentian.jackson.entity.User2;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -36,6 +36,9 @@ public class Test {
         test6();
         test7();
         test8();
+        test9();
+        test10();
+        test11();
     }
 
     static void test1() throws JsonProcessingException {
@@ -126,6 +129,43 @@ public class Test {
         User user = objectMapper.readValue(jsonStr, User.class);
 
         System.out.println(user);
+    }
+
+    static void test9() throws JsonProcessingException {
+        String jsonStr = "[" +
+                "{\"id\":1,\"name\":\"scott\",\"age\":20,\"gender\":\"male\"}, " +
+                "{\"id\":2,\"name\":\"tiger\",\"age\":21,\"gender\":\"female\"}, " +
+                "{\"id\":3,\"name\":\"ken\",\"age\":23,\"gender\":\"male\"}" +
+                "]";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        System.out.println("---------- to array");
+        User[] users = objectMapper.readValue(jsonStr, User[].class);
+        Arrays.stream(users).forEach(System.out::println);
+
+        System.out.println("---------- to list");
+        List<User> userList = objectMapper.readValue(jsonStr, new TypeReference<List<User>>() {
+        });
+        userList.forEach(System.out::println);
+    }
+
+    static void test10() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String filePath = Test.class.getClassLoader().getResource("user.json").getPath();
+
+        User user = objectMapper.readValue(new File(filePath), User.class);
+        System.out.println(user);
+    }
+
+    static void test11() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String filePath = Test.class.getClassLoader().getResource("users.json").getPath();
+
+        User[] users = objectMapper.readValue(new File(filePath), User[].class);
+        Arrays.stream(users).forEach(System.out::println);
     }
 
     static ObjectMapper getObjectMapper() {

@@ -8,8 +8,6 @@ import java.util.Properties;
  * <b>Config.java</b> 是读取配置信息的类
  * </p>
  *
- * @author <a href="mailto:wentian.he@qq.com">hewentian</a>
- * @date 2015-11-12 11:21:54 AM
  * @since JDK 1.8
  */
 public final class Config {
