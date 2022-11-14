@@ -2,9 +2,7 @@ package com.hewentian.elasticsearch;
 
 import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.InlineScript;
-import co.elastic.clients.elasticsearch._types.Script;
-import co.elastic.clients.elasticsearch._types.SearchType;
+import co.elastic.clients.elasticsearch._types.*;
 import co.elastic.clients.elasticsearch._types.aggregations.*;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import co.elastic.clients.elasticsearch.core.*;
@@ -12,61 +10,23 @@ import co.elastic.clients.elasticsearch.core.bulk.BulkResponseItem;
 import co.elastic.clients.elasticsearch.core.get.GetResult;
 import co.elastic.clients.elasticsearch.core.mget.MultiGetResponseItem;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.ResponseBody;
 import co.elastic.clients.elasticsearch.core.search.TotalHits;
 import co.elastic.clients.elasticsearch.core.search.TotalHitsRelation;
-import co.elastic.clients.elasticsearch.nodes.info.NodeInfo;
+import co.elastic.clients.elasticsearch.nodes.NodesStatsResponse;
+import co.elastic.clients.elasticsearch.nodes.Stats;
 import co.elastic.clients.json.JsonData;
 import co.elastic.clients.json.JsonpMapper;
-//import com.alibaba.fastjson.JSONArray;
-//import com.alibaba.fastjson.JSONObject;
-//import com.alibaba.fastjson.parser.Feature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hewentian.elasticsearch.entity.User;
 import com.hewentian.elasticsearch.util.ElasticsearchUtil;
-import jakarta.json.JsonArray;
 import jakarta.json.spi.JsonProvider;
-import jakarta.json.stream.JsonParser;
-//import org.elasticsearch.action.bulk.*;
-//import org.elasticsearch.action.delete.DeleteRequest;
-//import org.elasticsearch.action.delete.DeleteRequestBuilder;
-//import org.elasticsearch.action.delete.DeleteResponse;
-//import org.elasticsearch.action.get.GetResponse;
-//import org.elasticsearch.action.get.MultiGetItemResponse;
-//import org.elasticsearch.action.get.MultiGetResponse;
-//import org.elasticsearch.action.index.IndexRequest;
-//import org.elasticsearch.action.index.IndexRequestBuilder;
-//import org.elasticsearch.action.index.IndexResponse;
-//import org.elasticsearch.action.search.SearchResponse;
-//import org.elasticsearch.action.search.SearchType;
-//import org.elasticsearch.action.update.UpdateRequest;
-//import org.elasticsearch.action.update.UpdateResponse;
-//import org.elasticsearch.client.transport.TransportClient;
-//import org.elasticsearch.common.unit.ByteSizeUnit;
-//import org.elasticsearch.common.unit.ByteSizeValue;
-//import org.elasticsearch.common.unit.TimeValue;
-//import org.elasticsearch.common.xcontent.XContentBuilder;
-//import org.elasticsearch.common.xcontent.XContentFactory;
-//import org.elasticsearch.index.query.BoolQueryBuilder;
-//import org.elasticsearch.index.query.QueryBuilder;
-//import org.elasticsearch.index.query.QueryBuilders;
-//import org.elasticsearch.script.Script;
-//import org.elasticsearch.search.SearchHit;
-//import org.elasticsearch.search.SearchHits;
-//import org.elasticsearch.search.aggregations.Aggregation;
-//import org.elasticsearch.search.aggregations.AggregationBuilders;
-//import org.elasticsearch.search.aggregations.Aggregations;
-//import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
-//import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-//import org.elasticsearch.search.sort.FieldSortBuilder;
-//import org.elasticsearch.search.sort.SortOrder;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -96,35 +56,6 @@ public class ElasticsearchDemo {
     private static ElasticsearchClient elasticsearchClient;
     private static ElasticsearchAsyncClient elasticsearchAsyncClient;
 
-
-
-
-//
-//    public static void scrollSearch() throws Exception {
-//        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
-//        boolQueryBuilder.should(QueryBuilders.wildcardQuery("name", "*Ho"));
-//        boolQueryBuilder.should(QueryBuilders.termQuery("age", 23));
-//
-//        SearchResponse searchResponse = transportClient.prepareSearch(indexName).setTypes(typeName)
-//                .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC)
-//                .setQuery(boolQueryBuilder).setScroll(new TimeValue(60000))
-//                .setSize(100).get();
-//
-//        long totalHits = searchResponse.getHits().totalHits;
-//        System.out.println("totalHits: " + totalHits);
-//
-//        do {
-//            for (SearchHit hit : searchResponse.getHits().getHits()) {
-//                System.out.println("id = " + hit.getId());
-//            }
-//
-//            String scrollId = searchResponse.getScrollId();
-//            searchResponse = transportClient.prepareSearchScroll(scrollId).setScroll(new TimeValue(60000)).execute().actionGet();
-//        } while (searchResponse.getHits().getHits().length != 0);
-//
-//        System.out.println("end.");
-//    }
-//
 //    public static void bulkProcessor() throws InterruptedException, IOException {
 //        BulkProcessor bulkProcessor = BulkProcessor.builder(transportClient, new BulkProcessor.Listener() {
 //            @Override
@@ -771,9 +702,52 @@ public class ElasticsearchDemo {
         }
     }
 
-    public static void showNodeInfo() throws Exception {
-        Map<String, NodeInfo> nodes = elasticsearchClient.nodes().info().nodes();
-        for (Map.Entry<String, NodeInfo> entry : nodes.entrySet()) {
+    private static void scrollSearch() throws IOException {
+        String searchText = "scott";
+
+        Time time = Time.of(t -> t.time("1m"));
+
+        ResponseBody<User> response = elasticsearchClient.search(s -> s
+                        .index(indexName)
+                        .query(q -> q
+                                .match(t -> t
+                                        .field("name")
+                                        .query(searchText)
+                                )
+                        )
+                        .scroll(time)
+                        .sort(SortOptions.of(so -> so.field(FieldSort.of(f -> f.field("age").order(SortOrder.Asc)))))
+                        .size(3)
+                , User.class
+        );
+
+        TotalHits total = response.hits().total();
+        boolean isExactResult = total.relation() == TotalHitsRelation.Eq;
+
+        if (isExactResult) {
+            System.out.println("There are " + total.value() + " results");
+        } else {
+            System.out.println("There are more than " + total.value() + " results");
+        }
+
+        do {
+            System.out.println("-----------------------------------");
+            List<Hit<User>> hits = response.hits().hits();
+            for (Hit<User> hit : hits) {
+                User user = hit.source();
+                System.out.println("Found user: " + user + ", score " + hit.score());
+            }
+
+            String scrollId = response.scrollId();
+            System.out.println("scrollId: " + scrollId);
+
+            response = elasticsearchClient.scroll(s -> s.scrollId(scrollId).scroll(time), User.class);
+        } while (response.hits().hits().size() != 0);
+    }
+
+    public static void nodeStat() throws Exception {
+        NodesStatsResponse nodesStatsResponse = elasticsearchClient.nodes().stats();
+        for (Map.Entry<String, Stats> entry : nodesStatsResponse.nodes().entrySet()) {
             System.out.println(entry.getKey() + ", " + entry.getValue());
         }
     }
@@ -807,10 +781,10 @@ public class ElasticsearchDemo {
 //            upsertDoc();
 //            mGet();
 //            filter();
-
-//            showNodeInfo();
 //            scrollSearch();
-//            bulkProcessor();
+//            nodeStat();
+
+//            bulkProcessor(); // todo 这个好像在 8.0 后，被废弃
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
