@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Citizen {
-    protected List<Policeman> policemans;
+    protected List<PoliceMan> policeManList;
     private String help = "normal";
 
     public String getHelp() {
@@ -17,15 +17,15 @@ public abstract class Citizen {
 
     abstract void sendMessenger(String help);
 
-    public void setPoliceman() {
-        this.policemans = new ArrayList<>();
+    public void setPoliceMan() {
+        this.policeManList = new ArrayList<>();
     }
 
-    public void register(Policeman policeman) {
-        this.policemans.add(policeman);
+    public void register(PoliceMan policeMan) {
+        this.policeManList.add(policeMan);
     }
 
-    public void unRegister(Policeman policeman) {
-        this.policemans.remove(policeman);
+    public void unRegister(PoliceMan policeMan) {
+        this.policeManList.remove(policeMan);
     }
 }

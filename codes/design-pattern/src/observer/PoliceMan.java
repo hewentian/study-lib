@@ -1,5 +1,5 @@
 package observer;
 
-public interface Policeman {
+public interface PoliceMan {
     void action(Citizen citizen);
 }

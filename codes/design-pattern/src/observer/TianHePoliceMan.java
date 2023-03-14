@@ -1,6 +1,6 @@
 package observer;
 
-public class TianHePoliceman implements Policeman {
+public class TianHePoliceMan implements PoliceMan {
     @Override
     public void action(Citizen citizen) {
         String help = citizen.getHelp();
